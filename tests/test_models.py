@@ -142,33 +142,23 @@ class TestProductModel(unittest.TestCase):
     def test_list_all_products(self):
         """It should List all Products in the database"""
         products = Product.all()
-        # Assert if the products list is empty, indicating that there are no products in the database at the beginning of the test case.
         self.assertEqual(products, [])
-        # Use for loop to create five Product objects using a ProductFactory() and call the create() method on each product to save them to the database.
         for _ in range(5):
             product = ProductFactory()
             product.create()
-        # Fetch all products from the database again using product.all()
         products = Product.all()
-        # Assert if the length of the products list is equal to 5, to verify that the five products created in the previous step have been successfully added to the database.
         self.assertEqual(len(products), 5)
 
 
     def test_find_by_name(self):
         """It should Find a Product by Name"""
         products = ProductFactory.create_batch(5)
-        # Use a for loop to iterate over the products list and call the create() method on each product to save them to the database.
         for product in products:
             product.create()
-        # Retrieve the name of the first product in the products list.
         name = products[0].name
-        # Use a list comprehension to filter the products based on their name and then use len() to calculate the length of the filtered list, and use the variable called count to hold the number of products that match the name.
         count = len([product for product in products if product.name == name])
-        # Call the find_by_name() method on the Product class to retrieve products from the database that have the specified name.
         found = Product.find_by_name(name)
-        # Assert if the count of the found products matches the expected count.
         self.assertEqual(found.count(), count)
-        # Use a for loop to iterate over the found products and assert that each product's name matches the expected name, to ensure that all the retrieved products have the correct name.
         for product in found:
             self.assertEqual(product.name, name)
 

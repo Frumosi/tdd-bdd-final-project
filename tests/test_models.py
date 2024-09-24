@@ -180,9 +180,9 @@ class TestProductModel(unittest.TestCase):
         products = ProductFactory.create_batch(5)
         # Use a for loop to iterate over the products list and call the create() method on each product to save them to the database.
         for product in products:
-            product.create
+            product.create()
         # Retrieve the name of the first product in the products list.
-        name = product[0].name
+        name = products[0].name
         # Use a list comprehension to filter the products based on their name and then use len() to calculate the length of the filtered list, and use the variable called count to hold the number of products that match the name.
         count = len([product for product in products if product.name == name])
         # Call the find_by_name() method on the Product class to retrieve products from the database that have the specified name.
